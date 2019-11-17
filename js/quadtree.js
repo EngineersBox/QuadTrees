@@ -10,10 +10,12 @@ class QuadTree {
         this.capacity = capacity;
         this.boundary = boundary;
         this.points = [];
-        this.northWest = null;
-        this.northEast = null;
-        this.southWest = null;
-        this.southEast = null;
+        this.quads = {
+            NW: null,
+            NE: null,
+            SW: null,
+            SE: null
+        };
         this.divided = false;
     }
 
@@ -34,14 +36,11 @@ class QuadTree {
             if (!this.divided) {
                 this.subdivide();
             }
-            if (this.northWest.insert(point) == true)
-                return true;
-            if (this.northEast.insert(point) == true)
-                return true;
-            if (this.southWest.insert(point) == true)
-                return true;
-            if (this.southEast.insert(point) == true)
-                return true;
+            for (let val in this.quads) {
+                if (this.quads[val].insert(point)) {
+                    return true;
+                }
+            }
         }
     }
 
@@ -52,16 +51,14 @@ class QuadTree {
     subdivide() {
         let b = this.boundary;
 
-        let newradii = createVector(b.radii.x / 2, b.radii.y / 2);
-        let vecNW = createVector(b.center.x - newradii.x, b.center.y + newradii.y);
-        let vecNE = createVector(b.center.x + newradii.x, b.center.y + newradii.y);
-        let vecSW = createVector(b.center.x - newradii.x, b.center.y - newradii.y);
-        let vecSE = createVector(b.center.x + newradii.x, b.center.y - newradii.y);
-
-        this.northWest = new QuadTree(this.capacity, new AABB(vecNW, newradii));
-        this.northEast = new QuadTree(this.capacity, new AABB(vecNE, newradii));
-        this.southWest = new QuadTree(this.capacity, new AABB(vecSW, newradii));
-        this.southEast = new QuadTree(this.capacity, new AABB(vecSE, newradii));
+        let radii = createVector(b.radii.x / 2, b.radii.y / 2);
+        let coeffs = [[-1, 1], [1, 1], [-1, -1], [1, -1]]
+        let count = 0;
+        for (let val in this.quads) {
+            let vec = createVector(b.center.x + (coeffs[count][0] * radii.x), b.center.y + (coeffs[count][1] * radii.y));
+            this.quads[val] = new QuadTree(this.capacity, new AABB(vec, radii));
+            count++;
+        }
 
         this.divided = true;
     }
@@ -86,10 +83,9 @@ class QuadTree {
                 }
             }
             if (this.divided) {
-                this.northWest.queryRange(range, pointsInRange);
-                this.northEast.queryRange(range, pointsInRange);
-                this.southWest.queryRange(range, pointsInRange);
-                this.southEast.queryRange(range, pointsInRange);
+                for (let val in this.quads) {
+                    this.quads[val].queryRange(range, pointsInRange);
+                }
             }
         }
         return pointsInRange;
@@ -111,10 +107,9 @@ class QuadTree {
         }
 
         if (this.divided) {
-            this.northWest.show();
-            this.northEast.show();
-            this.southWest.show();
-            this.southEast.show();
+            for (let val in this.quads) {
+                this.quads[val].show();
+            }
         }
     }
 
