@@ -18,7 +18,7 @@ function setup() {
     canvas = createCanvas(C_WIDTH, C_HEIGHT);
     canvas.parent("sketch_view");
 
-    quad = new QuadTree(BOUNDARY_CAPACITY, new AABB(createVector(C_WIDTH / 2, C_HEIGHT / 2), C_WIDTH / 2));
+    quad = new QuadTree(BOUNDARY_CAPACITY, new AABB(createVector(C_WIDTH / 2, C_HEIGHT / 2), createVector(C_WIDTH / 2, C_HEIGHT / 2)));
 
     for (let i = 0; i < POINT_COUNT; i++) {
         quad.insert(createVector(Math.random() * C_WIDTH, Math.random() * C_HEIGHT));

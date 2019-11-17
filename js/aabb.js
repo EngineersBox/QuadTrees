@@ -4,23 +4,23 @@ class AABB {
      * Create new Axis-aligned bounding box
      * 
      * @param {p5.Vector} center 
-     * @param {Number} radius
+     * @param {Number} radii
      */
-    constructor(center, radius) {
+    constructor(center, radii) {
         this.center = center;
-        this.radius = radius;
+        this.radii = radii;
     }
 
     contains(point) {
-        return Utils.inRange(point.x, this.center.x - this.radius, this.center.x + this.radius) &&
-               Utils.inRange(point.y, this.center.y - this.radius, this.center.y + this.radius)
+        return Utils.inRange(point.x, this.center.x - this.radii.x, this.center.x + this.radii.x) &&
+               Utils.inRange(point.y, this.center.y - this.radii.y, this.center.y + this.radii.y)
     }
 
     intersects(other) {
-        return !(other.center.x - other.radius > this.center.x + this.radius ||
-                 other.center.x + other.radius < this.center.x - this.radius ||
-                 other.center.y - other.radius > this.center.y + this.radius ||
-                 other.center.y + other.radius < this.center.y - this.radius);
+        return !(other.center.x - other.radii.x > this.center.x + this.radii.x ||
+                 other.center.x + other.radii.x < this.center.x - this.radii.x ||
+                 other.center.y - other.radii.y > this.center.y + this.radii.y ||
+                 other.center.y + other.radii.y < this.center.y - this.radii.y);
     }
 
 }

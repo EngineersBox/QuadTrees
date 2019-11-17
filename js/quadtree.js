@@ -52,15 +52,16 @@ class QuadTree {
     subdivide() {
         let b = this.boundary;
 
-        let vecNW = createVector(b.center.x - b.radius / 2, b.center.y + b.radius / 2);
-        let vecNE = createVector(b.center.x + b.radius / 2, b.center.y + b.radius / 2);
-        let vecSW = createVector(b.center.x - b.radius / 2, b.center.y - b.radius / 2);
-        let vecSE = createVector(b.center.x + b.radius / 2, b.center.y - b.radius / 2);
+        let radii = createVector(b.radii.x / 2, b.radii.y / 2);
+        let vecNW = createVector(b.center.x - radii.x, b.center.y + radii.y);
+        let vecNE = createVector(b.center.x - radii.x, b.center.y + radii.y);
+        let vecSW = createVector(b.center.x - radii.x, b.center.y - radii.y);
+        let vecSE = createVector(b.center.x + radii.x, b.center.y - radii.y);
 
-        this.northWest = new QuadTree(this.capacity, new AABB(vecNW, b.radius / 2));
-        this.northEast = new QuadTree(this.capacity, new AABB(vecNE, b.radius / 2));
-        this.southWest = new QuadTree(this.capacity, new AABB(vecSW, b.radius / 2));
-        this.southEast = new QuadTree(this.capacity, new AABB(vecSE, b.radius / 2));
+        this.northWest = new QuadTree(this.capacity, new AABB(vecNW, radii));
+        this.northEast = new QuadTree(this.capacity, new AABB(vecNE, radii));
+        this.southWest = new QuadTree(this.capacity, new AABB(vecSW, radii));
+        this.southEast = new QuadTree(this.capacity, new AABB(vecSE, radii));
 
         this.divided = true;
     }
@@ -102,7 +103,7 @@ class QuadTree {
         noFill();
         strokeWeight(1);
         rectMode(CENTER);
-        rect(this.boundary.center.x, this.boundary.center.y, this.boundary.radius * 2, this.boundary.radius * 2);
+        rect(this.boundary.center.x, this.boundary.center.y, this.boundary.radii.x * 2, this.boundary.radii.y * 2);
         
         for (let p of this.points) {
             strokeWeight(2);
