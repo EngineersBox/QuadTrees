@@ -5,14 +5,14 @@ QuadTrees are a 2D point decomposition algorithm, essentially grouping points in
 It also has a capacity, a maximum amount of points it can hold before it has to split into 4 subdivisions, each of which are a box in and of themselves.
 
 Here is an example of a QuadTree with box capacity 1:
-![QuadTree Example](https://en.wikipedia.org/wiki/File:Point_quadtree.svg)
+![QuadTree Example](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Point_quadtree.svg/1024px-Point_quadtree.svg.png)
 
 QuadTrees allow fast classification of points and speed up algorithms that require localised point querying, such as object interactions. 
 
 Another use is for image compression, in this case the points are colour values. Each box would contain a threshold for which a colour and deviate and still remain classified inside that box. Anything outside of this deviation would cause it to subdivide.
 
 Here is an example of image compression with QuadTrees:
-![Image Compression Example](https://en.wikipedia.org/wiki/File:Quadtree_compression_of_an_image.gif)
+![Image Compression Example](https://upload.wikimedia.org/wikipedia/commons/d/d7/Quadtree_compression_of_an_image.gif)
 
 There is a 3D version of QuadTrees, called OctTrees that have the same idea but for 3 dimensions.
 
