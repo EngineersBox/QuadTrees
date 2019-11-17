@@ -11,13 +11,16 @@ class AABB {
         this.radius = radius;
     }
 
-    containsPoint(point) {
-        return Utils.inRange(point.x, this.center.x - radius, this.center.x + radius) &&
-               Utils.inRange(point.y, this.center.y - radius, this.center.y + radius)
+    contains(point) {
+        return Utils.inRange(point.x, this.center.x - this.radius, this.center.x + this.radius) &&
+               Utils.inRange(point.y, this.center.y - this.radius, this.center.y + this.radius)
     }
 
-    intersectsAABB(other) {
-        return;
+    intersects(other) {
+        return !(other.center.x - other.radius > this.center.x + this.radius ||
+                 other.center.x + other.radius < this.center.x - this.radius ||
+                 other.center.y - other.radius > this.center.y + this.radius ||
+                 other.center.y + other.radius < this.center.y - this.radius);
     }
 
 }

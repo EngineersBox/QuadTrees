@@ -1,0 +1,35 @@
+body {
+    background-color: #232323;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#sketch_view {
+    top: 0;
+    width: auto;
+    height: auto
+}
+
+#settings {
+    display: inline-flex;
+}
+
+#settings,th {
+    color: #d88383;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#settings,td {
+    font-weight: normal;
+    color: #ffff61;
+}
+
+#gridfill {
+    font-weight: lighter;
+    color: white;
+    font-size: 15px;
+}
+
+.grid_pref {
+    width: 30px;
+}
