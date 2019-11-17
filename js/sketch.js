@@ -14,8 +14,8 @@ function initConst() {
 function setup() {
     initConst();
     canvas = createCanvas(C_WIDTH, C_HEIGHT);
-    canvas.parent = "sketch_view";
-    
+    canvas.parent("sketch_view");
+
     quad = new QuadTree(1, new AABB(createVector(C_WIDTH / 2, C_HEIGHT / 2), C_WIDTH / 2));
 
     for (let i = 0; i < POINT_COUNT; i++) {
