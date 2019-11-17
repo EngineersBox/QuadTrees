@@ -4,7 +4,7 @@ class AABB {
      * Create new Axis-aligned bounding box
      * 
      * @param {p5.Vector} center 
-     * @param {Number} radii
+     * @param {p5.Vector} radii
      */
     constructor(center, radii) {
         this.center = center;

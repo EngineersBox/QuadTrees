@@ -52,16 +52,16 @@ class QuadTree {
     subdivide() {
         let b = this.boundary;
 
-        let radii = createVector(b.radii.x / 2, b.radii.y / 2);
-        let vecNW = createVector(b.center.x - radii.x, b.center.y + radii.y);
-        let vecNE = createVector(b.center.x - radii.x, b.center.y + radii.y);
-        let vecSW = createVector(b.center.x - radii.x, b.center.y - radii.y);
-        let vecSE = createVector(b.center.x + radii.x, b.center.y - radii.y);
+        let newradii = createVector(b.radii.x / 2, b.radii.y / 2);
+        let vecNW = createVector(b.center.x - newradii.x, b.center.y + newradii.y);
+        let vecNE = createVector(b.center.x + newradii.x, b.center.y + newradii.y);
+        let vecSW = createVector(b.center.x - newradii.x, b.center.y - newradii.y);
+        let vecSE = createVector(b.center.x + newradii.x, b.center.y - newradii.y);
 
-        this.northWest = new QuadTree(this.capacity, new AABB(vecNW, radii));
-        this.northEast = new QuadTree(this.capacity, new AABB(vecNE, radii));
-        this.southWest = new QuadTree(this.capacity, new AABB(vecSW, radii));
-        this.southEast = new QuadTree(this.capacity, new AABB(vecSE, radii));
+        this.northWest = new QuadTree(this.capacity, new AABB(vecNW, newradii));
+        this.northEast = new QuadTree(this.capacity, new AABB(vecNE, newradii));
+        this.southWest = new QuadTree(this.capacity, new AABB(vecSW, newradii));
+        this.southEast = new QuadTree(this.capacity, new AABB(vecSE, newradii));
 
         this.divided = true;
     }
